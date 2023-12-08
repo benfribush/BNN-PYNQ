@@ -115,7 +115,7 @@ std::vector<int> testPrebinarized_nolabel(std::vector<vec_t> & imgs, const unsig
     throw "labelBits > bitsPerExtMemWord not yet supported";
   }
   const unsigned int count = 1;
-  cout << "Running prebinarized test for " << count << " images..." << endl;
+//  cout << "Running prebinarized test for " << count << " images..." << endl;
   // compute the number of words needed to store the each img and label in binarized form
   const unsigned int psi = paddedSize(imgs[0].size(), bitsPerExtMemWord) / bitsPerExtMemWord;
   const unsigned int psl = paddedSize(labelBits, bitsPerExtMemWord) / bitsPerExtMemWord;
@@ -146,8 +146,8 @@ std::vector<int> testPrebinarized_nolabel(std::vector<vec_t> & imgs, const unsig
   }
   auto duration = chrono::duration_cast<chrono::microseconds>(t2 - t1).count();
   usecPerImage = (float)duration / (count);
-  cout << "Inference took " << duration << " microseconds, " << usecPerImage << " usec per image" << endl;
-  cout << "Classification rate: " << 1000000.0 / usecPerImage << " images per second" << endl;
+ // cout << "Inference took " << duration << " microseconds, " << usecPerImage << " usec per image" << endl;
+ // cout << "Classification rate: " << 1000000.0 / usecPerImage << " images per second" << endl;
   std::vector<int> result;
   double internal_result;
   if (outLabel[0] == 0) {

@@ -121,8 +121,8 @@ class PynqBNN:
 	def inference(self, path):
 		usecperimage = _ffi.new("float *")
 		result_ptr = self.interface.inference(path.encode(),  _ffi.NULL, len(self.classes), usecperimage)
-		print("Inference took %.2f microseconds" % (usecperimage[0]))
-		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
+#		print("Inference took %.2f microseconds" % (usecperimage[0]))
+#		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
 		self.usecPerImage = usecperimage[0]
 		return result_ptr
 
@@ -133,8 +133,8 @@ class PynqBNN:
 		usecperimage = _ffi.new("float *") 
 		self.interface.inference(path.encode(), details_ptr, len(self.classes), usecperimage)
 		details_buf = _ffi.buffer(details_ptr, len(self.classes) * 4)
-		print("Inference took %.2f microseconds" % (usecperimage[0]))
-		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
+#		print("Inference took %.2f microseconds" % (usecperimage[0]))
+#		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
 		details_array = np.copy(np.frombuffer(details_buf, dtype=np.int32))
 		self.usecPerImage = usecperimage[0]
 		return details_array
@@ -145,9 +145,9 @@ class PynqBNN:
 		usecperimage = _ffi.new("float *")
 		result_ptr = self.interface.inference_multiple(path.encode(), len(self.classes), size_ptr, usecperimage,0)
 		result_buffer = _ffi.buffer(result_ptr, size_ptr[0] * 4)
-		print("Inference took %.2f microseconds, %.2f usec per image" % (usecperimage[0]*size_ptr[0],usecperimage[0]))
+#		print("Inference took %.2f microseconds, %.2f usec per image" % (usecperimage[0]*size_ptr[0],usecperimage[0]))
 		result_array = np.copy(np.frombuffer(result_buffer, dtype=np.int32))
-		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
+#		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
 		self.interface.free_results(result_ptr)
 		self.usecPerImage = usecperimage[0]
 		return result_array
@@ -157,8 +157,8 @@ class PynqBNN:
 		size_ptr = _ffi.new("int *")
 		usecperimage = _ffi.new("float *")
 		result_ptr = self.interface.inference_multiple(path.encode(), len(self.classes), size_ptr, usecperimage,1)
-		print("Inference took %.2f microseconds, %.2f usec per image" % (usecperimage[0]*size_ptr[0],usecperimage[0]))
-		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
+#		print("Inference took %.2f microseconds, %.2f usec per image" % (usecperimage[0]*size_ptr[0],usecperimage[0]))
+#		print("Classification rate: %.2f images per second" % (1000000.0/usecperimage[0]))
 		result_buffer = _ffi.buffer(result_ptr,len(self.classes)* size_ptr[0] * 4)
 		result_array = np.copy(np.frombuffer(result_buffer, dtype=np.int32))
 		self.interface.free_results(result_ptr)
